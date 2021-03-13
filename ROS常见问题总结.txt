@@ -1,0 +1,152 @@
+/ur_ws/src/fmauch_universal_robot/ur_gazebo/meshes/soda_can/meshes/soda_can.dae
+
+source Franka_ws/devel/setup.bash
+roslaunch panda_moveit_config panda_planning_execution.launch
+
+source ur_ws/devel/setup.bash
+roslaunch ur3_moveit_config demo.launch
+roslaunch ur_gazebo ur3.launch
+
+出现No module named 'yaml' 在pycharm中命令行中输入pip install pyyaml
+出现No module named 'rospkg'在pycharm中命令行中输入pip install rospkg
+
+source devel/setup.bash
+通过chmod命令给py文件增加运行权限chmod u+x topic_pub.py
+
+查看所有运行的节点关系  rqt-graph
+查看所有运行的节点  rosnode list
+查看节点类型  rosnode info <node-name>
+查看所有运行的话题  rostopic list
+查看数据类型  rostopic info <topic-name>
+查看消息内容  rosmsg show  <message-name>
+
+joint_state_publisher：该节点通过读取参数服务器上的/robot_description来获得机器人的所有非固定关节，并从/move_group/fake_controller_joint_states主题来获取关节状态。主要功能是负责输出关节消息（sensor_msgs/JointState）,并发布/joint_state话题到/move_group和/robot_state_publisher节点。
+robot_state_publisher：接收joint_state_publisher发布的话题消息，并通过tf发布结果到/move_group节点
+
+1.先在app designer中对机器人进行建模
+2.关节空间运动，笛卡尔运动，轨迹规划（正逆运动学）
+3.速度控制，位置控制，力矩控制
+4.末端执行器位置，关节角
+5.雅可比矩阵（世界坐标系，末端执行器坐标系）
+6.速度椭球，重力负载分析
+----*---- 
+---***---git clone
+--*****--
+-*******-
+*********
+drawnow; 更新图窗并处理回调
+清空坐标区内的绘图数据：cla(app.UIAxes)
+下拉框的程序调用方法：XXX == string(app.DropDown.Value)
+控制某个控件是否可见，采用：app.XXX.Visible='on'或者 'off'；坐标区的X、Y坐标名称也可以根据控件的状态进行更改，方式为app.XXX.XLabel.String = 'Weight'
+读取开关控件的值采用的程序语句为：XXX= app.xxx.Value。
+floor()这个函数是向下取整。
+字符串，为了使返回值变为数值型，直接用于数值运算，可以采用语句：value=str2double(app.XX.value)
+
+$ sudo cp license_standalone.lic /usr/local/Polyspace/R2019b/licenses
+$ sudo cp bin -r /usr/local/Polyspace/R2019b/
+
+1.添加ROS软件源
+$ sudo sh -c '. /etc/lsb-release && echo "deb http://mirrors.tuna.tsinghua.edu.cn/ros/ubuntu/ $DISTRIB_CODENAME main" > /etc/apt/sources.list.d/ros-latest.list'
+
+2.添加密钥kinect
+$ sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+3.安装ROS
+$ sudo apt update
+$ sudo apt install ros-noetic-desktop-full
+更换镜像下载源
+$ sudo gedit /etc/apt/sources.list
+替换清华源网站
+https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/
+
+4.初始化rosdep
+$ sudo rosdep init
+一，安装ROS时执行到sudo rosdep init时出现sudo rosdep：找不到命令提示。
+解决方法：20.04需要输入：sudo apt install python3-rosdep2或者18.04需要输入sudo apt-get install python-rosdep
+二，安装ROS时执行到sudo rosdep init时出现ERROR: cannot download default sources list from:
+https://raw.githubusercontent.com/ros/rosdistro/master/rosdep/sources.list.d/20-default.list
+Website may be down. 
+解决方法：在命令行输入sudo gedit /etc/hosts，打开https://site.ip138.com/raw.githubusercontent.com/
+在host文件中添加（151.101.76.133 raw.githubusercontent.com）
+
+$ rosdep update
+
+5.设置环境变量
+$ echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+$ source ~/.bashrc
+
+6.安装rosinstall
+$ sudo apt install python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+$ sudo apt install python3-roslaunch
+一，运行roscore时出现
+Resource not found: roslaunch
+ROS path [0]=/opt/ros/noetic/share/ros
+ROS path [1]=/opt/ros/noetic/share
+The traceback for the exception was written to the log file
+解决方法：需要输入：sudo apt install ros-noetic-roslaunch
+二，运行rosrun turtlesim turtlesim_node
+出现Command ‘rosrun’ not found, but can be installed with:sudo apt install rosbash
+解决方法：需要输入：sudo apt install ros-noetic-rosbash
+三，接下来出现package ‘turtlesim’ not found
+解决方法：需要输入：sudo apt install ros-noetic-turtlesim
+
+出现catkin：未找到命令
+$ sudo apt-get install python-catkin-tools
+
+安装依赖项
+rosdep install --from-paths src --ignore-src -y
+rosdep install --from-paths ~/catkin_ws/src/ur_ws --ignore-src -r
+
+升级gazebo
+先卸载
+$ dpkg -l | grep gazebo
+$ sudo apt-get remove gazebo7 gazebo7-common gazebo7-plugin-base libgazebo7:amd64 libgazebo7-dev:amd64 ros-kinetic-gazebo-*
+再单线 默认安装 
+$ curl -sSL http://get.gazebosim.org | sh
+安装一些ROS-Gazebo组件
+$ sudo apt-get install ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control
+或者
+$ sudo apt-get remove ros-kinetic-gazebo*
+$ sudo apt-get remove libgazebo*
+$ sudo apt-get remove gazebo*
+$ sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" /etc/apt/sources.list.d/gazebo-stable.list'
+$ wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+$ sudo apt-get update
+$ sudo apt-get install ros-kinetic-gazebo9-*
+$ gazebo
+下载gazebo模型
+$ git clone https://gitee.com/cenruping/gazebo_models.git
+
+为 Python 2 安装 pip
+$ sudo apt install python-pip
+为 Python 3 安装 pip
+$ sudo apt install python3-pip
+
+安装rqt
+$ sudo apt-get install ros-noetic-rqt ros-noetic-rqt-common-plugins  %rqt的核心库 + 通用插件
+$ sudo apt-get install ros-noetic-rqt-robot-plugins  %rqt_robot_plugins提供与机器人进行交互时要使用的功能
+（只安装特定的rqt插件，例如只安装moveit：sudo apt-get install ros-noetic-rqt-moveit）
+升级已安装的软件包
+$ sudo apt-get update
+$ sudo apt-get dist-upgrade
+
+清理软件stacer
+$ sudo apt install software-properties-common
+$ sudo add-apt-repository ppa:oguzhaninan/stacer 
+$ sudo apt update 
+$ sudo apt install stacer 
+
+安装moveit
+$ sudo apt-get install ros-kinetic-moveit
+
+安装roboware
+$ sudo apt-get install python-pip
+$ sudo apt-get install clang-format-3.8
+$ sudo dpkg -i roboware-studio_1.2.0-1524709819_amd64.deb
+
+ubuntu动态截图，制作GIF动画
+
+Ubuntu18.04 + ROS melodic环境下，下载了UR机械臂官方包
+运行roslaunch ur_gazebo ur5.launch时居然报错：Could not load controller 'arm_controller'
+原因还是下载ros melodic的时候有些包没安装全造成的，缺少以下包，可以用下面命令下载补齐:
+sudo apt-get install ros-melodic-ros-control ros-melodic-ros-controllers

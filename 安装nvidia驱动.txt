@@ -1,0 +1,4 @@
+ubuntu-drivers devices
+sudo apt update
+sudo ubuntu-drivers autoinstall   # for recommended
+nvidia-smi

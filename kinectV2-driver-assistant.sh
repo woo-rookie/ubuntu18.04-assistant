@@ -32,8 +32,8 @@ UPurple='\033[4;35m'      # Purple
 UCyan='\033[4;36m'        # Cyan
 UWhite='\033[4;37m'       # White
 
-cd ~
-cd catkin_ws/src
+cd ~/catkin_ws/src
+
 sudo apt install git
 
 # Download libfreenect2 source

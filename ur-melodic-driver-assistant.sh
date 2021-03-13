@@ -64,5 +64,15 @@ else
     echo -e "${BRed}放弃安装ur驱动${Color_Off}"
 fi
 
+echo -e "${BRed}提示：请新打开一个终端，运行${Color_Off}"
+echo "roslaunch ur_modern_driver ur3_bringup.launch limited:=true robot_ip:=192.168.56.1 use_lowbandwidth_trajectory_follower:=true"
+echo -e "${BRed}提示：robot_ip:=IP.OF.YOUR.UR${Color_Off}"
+
+echo -e "${BRed}提示：请新打开一个终端，运行${Color_Off}"
+echo "roslaunch ur3_moveit_config ur3_moveit_planning_execution.launch limited:=true
+"
+
+echo -e "${BRed}提示：请新打开一个终端，运行${Color_Off}"
+echo "roslaunch ur3_moveit_config moveit_rviz.launch config:=true"
 
  

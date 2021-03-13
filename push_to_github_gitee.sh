@@ -34,12 +34,13 @@ UWhite='\033[4;37m'       # White
 
 # git config --global user.name "woo-rookie"
 # git config --global user.email "1572914362@qq.com"
-git remote add gitee https://gitee.com/woo-rookie/ubuntu18.04-assistant.git
-git remote add github https://github.com/woo-rookie/ubuntu18.04-assistant.git
 
 git init
 
 git add .
+
+git remote add gitee https://gitee.com/woo-rookie/ubuntu18.04-assistant.git
+git remote add github https://github.com/woo-rookie/ubuntu18.04-assistant.git
 
 git commit -m "$(date)"
 

@@ -1,0 +1,21 @@
+sudo apt install python3-pip
+# sudo apt install python-pip
+pip3 install urx
+pip3 install numpy
+cd ~/.local/lib/python3.6/site-packages/
+rm -r urx
+git clone https://gitee.com/woo-rookie/urx.git
+
+sudo gedit ~/.local/share/applications/jetbrains-pycharm.desktop   #如果选择安装为当前用户可用
+sudo gedit /usr/share/applications/jetbrains-pycharm-ce.desktop   #如果选择为全部用户可用
+在通过快捷方式启动PyCharm的同时加载ROS环境变量（ROS环境变量加载脚本配置在 ~/.bashrc 文件内）
+修改Exec变量一行，在=后添加 bash -i -c 
+pip3 install rospkg
+
+pip3 install pybullet
+
+pip3 install attrdict
+
+cd ~/.local/lib/python3.6/site-packages/pybullet_data/
+
+git clone https://gitee.com/woo-rookie/ur3_pybullet_data.git

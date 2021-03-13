@@ -1,0 +1,37 @@
+bridge between ROS1 and PyBullet
+
+$ conda create workenv python=3.6 numpy
+$ conda activate workenv
+$ sudo -H pip3 install pybullet
+
+clone this repository inside catkin workspace
+$ git clone https://github.com/oscar-lima/pybullet_ros.git
+$ catkin build
+$ source ~/catkin_ws/devel/setup.bash
+
+In case we need to simulate RGBD sensor then install opencv for python3 and ros cv bridge:
+$ pip install opencv-python
+$ sudo apt install ros-melodic-cv-bridge
+
+$ pip install pyyaml
+$ pip install rospkg
+
+查看已安装的软件包列表
+dpkg --list
+卸载程序和所有配置文件
+sudo apt-get --purge remove **
+
+python link to python2.7
+Two versions of python on linux. how to make 2.7 the default
+which python
+ln -s /usr/bin/python2.7 python
+python
+
+roslaunch ur_control ur3_control.launch robot_ip:=192.168.56.1
+
+解决urx.urrobot.RobotException: Robot stopped
+https://github.com/jkur/python-urx.git
+带有OnRobot RG2 Gripper
+https://github.com/Mofeywalker/python-urx.git
+
+/home/wx/.local/lib/python3.6/site-packages
