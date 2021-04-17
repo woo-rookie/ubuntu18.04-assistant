@@ -6,6 +6,5 @@ Bash scripts to install:
 * handeye
 * ur-melodic-driver
 * nvidia-driver
-* openrave
 
 
