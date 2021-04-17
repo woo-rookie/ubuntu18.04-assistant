@@ -34,6 +34,7 @@ UWhite='\033[4;37m'       # White
 
 cd ~
 sudo apt install git
+sudo apt install ros-melodic-joint-state-publisher-gui
 
 echo -e "${BRed}需要删除catkin_ws文件夹！${Color_Off}"
 read -r -p "是否删除catkin_ws文件夹？[y/n]" response
@@ -45,11 +46,10 @@ if [[ "$response" =~ y ]];then
     # create a catkin workspace
     mkdir -p catkin_ws/src && cd catkin_ws
     # clone the driver
-    # git clone https://gitee.com/woo-rookie/Universal_Robots_ROS_Driver.git src/Universal_Robots_ROS_Driver
-    git clone https://gitee.com/woo-rookie/ur_modern_driver.git src/ur_modern_driver
+    git clone https://gitee.com/woo-rookie/Universal_Robots_ROS_Driver.git src/Universal_Robots_ROS_Driver
+    # git clone https://gitee.com/woo-rookie/ur_modern_driver.git src/ur_modern_driver
     # clone fork of the description. This is currently necessary, until the changes are merged upstream.
-    git clone -b calibration_devel https://gitee.com/woo-rookie/universal_robot.git src/universal_robot
-    # git clone -b melodic-devel https://github.com/ros-industrial/universal_robot.git src/universal_robot
+    git clone -b calibration_devel https://gitee.com/woo-rookie/universal_robot.git src/
     # install dependencies
     sudo apt update -qq
     rosdep update

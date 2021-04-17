@@ -4,7 +4,12 @@ Point Cloud Library (PCL)
 sudo apt-get install libpcl-dev ros-melodic-pcl-ros
 添加依赖
 rosdep install --from-paths src --ignore-src
+
+sudo apt-get install python3-opencv
+
 解决readtimeouterror pip
 pip install opencv-python  --default-timeout=100 future
 python -m pip install opencv-contrib-python
+
+
 

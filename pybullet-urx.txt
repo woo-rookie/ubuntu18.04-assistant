@@ -15,7 +15,3 @@ pip3 install rospkg
 pip3 install pybullet
 
 pip3 install attrdict
-
-cd ~/.local/lib/python3.6/site-packages/pybullet_data/
-
-git clone https://gitee.com/woo-rookie/ur3_pybullet_data.git

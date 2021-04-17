@@ -13,7 +13,7 @@ roslaunch ur_gazebo ur3.launch
 source devel/setup.bash
 通过chmod命令给py文件增加运行权限chmod u+x topic_pub.py
 
-查看所有运行的节点关系  rqt-graph
+查看所有运行的节点关系  rqt_graph
 查看所有运行的节点  rosnode list
 查看节点类型  rosnode info <node-name>
 查看所有运行的话题  rostopic list

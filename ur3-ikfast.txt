@@ -1,0 +1,39 @@
+# you must fix a set of environmental variables for OpenRAVE to actually detect OSG (else, error such as Required > 3.4, failed because detected 3.4.2):
+export LD_LIBRARY_PATH="/usr/local/lib64:/usr/local/lib:$LD_LIBRARY_PATH"
+export OPENTHREADS_INC_DIR="/usr/local/include"
+export OPENTHREADS_LIB_DIR="/usr/local/lib64:/usr/local/lib"
+export PATH="$OPENTHREADS_LIB_DIR:$PATH"
+
+# Installing OpenRAVE
+git clone https://gitee.com/woo-rookie/openrave-installation.git
+
+./install-dependencies.sh
+./install-osg.sh
+./install-fcl.sh
+./install-openrave.sh
+
+# 将机器人模型.urdf转为.dae文件
+rosrun xacro xacro -o ur3_robot.urdf ur3_robot.urdf.xacro
+sudo apt-get install ros-melodic-collada-urdf
+rosrun collada_urdf urdf_to_collada ur3_robot.urdf ur3_robot.dae
+
+# copy
+cp ur3_robot.dae ur3_robot.backup.dae
+# 设置精度
+export IKFAST_PRECISION="5"
+rosrun moveit_kinematics round_collada_numbers.py ur3_robot.dae ur3_robot.dae "$IKFAST_PRECISION"
+# 查看关节数据
+openrave-robot.py ur3_robot.dae --info links
+# 查看关节模型
+sudo apt-get install libcanberra-gtk-module
+openrave ur3.robot.xml
+
+# 生成IKFast的cpp文件
+python `openrave-config --python-dir`/openravepy/_openravepy_/ikfast.py --robot=ur3.robot.xml --iktype=transform6d --baselink=0 --eelink=6 --savefile=ikfast61.cpp --maxcasedepth 1
+
+# 使用 ikfast61.cpp 求逆解,将ikfast.h和ikfast61.cpp放在同一个文件夹下。
+g++ ikfast61.cpp -o ikfast -llapack -std=c++11
+
+# 编译
+python3 setup.py build_ext --inplace
+
